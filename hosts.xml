@@ -1,0 +1,18 @@
+<!-- 
+
+This file tells Vespa: These are the  Docker containers where services should run.
+<host name="vespa"> The real hostname of your machine or Docker container ,Note:name must match the container name
+<alias>node1</alias> The nickname you used in services.xml: <node hostalias="node1"/>
+So this is saying: Hey Vespa, when I say node1, I mean the host named vespa
+ -->
+
+
+<hosts>
+    <host name="vespa-container">
+        <alias>node1</alias>
+    </host>
+</hosts>
+
+
+
+

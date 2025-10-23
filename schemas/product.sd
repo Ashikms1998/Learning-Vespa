@@ -1,0 +1,39 @@
+
+#product is the schema name
+#Now, we define the document itself inside this schema — this is like saying:
+#"My schema named product stores documents of type product"
+#rank profile - This says:Use Vespa's built-in nativeRank algorithm on name
+#and description fields to rank search results.
+#just writing indexing: index enough to index it ,when you say indexing:index it means Take the field value, 
+#tokenize it (split into searchable words), and store it in the inverted index so I can search by it.
+#summary : When you do a query and Vespa returns documents, it only includes fields marked with "summary"
+#So if you don’t mark a field with "summary", Vespa can find it, but won’t return it in results.
+#use attribute for filtering because it automatically do Numeric filter (e.g. price > 1000),Sorting (e.g. order by price),Grouping / aggregation
+#we can use attrubute like this (field name type string {
+#  indexing: index | attribute | summary
+#}) but using both index and attribute uses more memory (because Vespa stores it twice: tokenized and raw)so not suggesting.
+#nativeRank - Use Vespa’s default scoring to rank documents based on name and description matches here.
+#we can also write our own formulas(eg:expression: 0.7 * nativeRank(name, description) + 0.3 * attributeMatch(price))
+
+
+
+search product{ 
+    document product{
+        field name type string {
+            indexing: index | summary
+        }
+
+        field description type string {
+            indexing: index | summary
+        }
+
+        field price type double {
+            indexing: attribute | summary
+        }
+    }
+    rank-profile default {
+        first-phase {
+            expression:nativeRank(name, description)
+        }
+    }
+}
