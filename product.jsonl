@@ -1,0 +1,10 @@
+{"put": "id:product:product::1", "fields": {"name": "Apple iPhone 15", "description": "Latest Apple iPhone with A16 Bionic chip and improved camera system.", "category": "Smartphone", "price": 1199.99}}
+{"put": "id:product:product::2", "fields": {"name": "Samsung Galaxy S23", "description": "Flagship Samsung smartphone with cutting-edge features and sleek design.", "category": "Smartphone", "price": 999.99}}
+{"put": "id:product:product::3", "fields": {"name": "Sony WH-1000XM5", "description": "Industry-leading noise-canceling headphones with superior sound quality.", "category": "Headphones", "price": 349.99}}
+{"put": "id:product:product::4", "fields": {"name": "Dell XPS 13", "description": "High-performance ultrabook with a stunning display and long battery life.", "category": "Laptop", "price": 1299.99}}
+{"put": "id:product:product::5", "fields": {"name": "Apple MacBook Pro 16", "description": "Powerful laptop with M1 Pro chip, ideal for professionals and creatives.", "category": "Laptop", "price": 2499.99}}
+{"put": "id:product:product::6", "fields": {"name": "Google Pixel 7", "description": "Google's latest smartphone with exceptional camera capabilities and pure Android experience.", "category": "Smartphone", "price": 899.99}}
+{"put": "id:product:product::7", "fields": {"name": "Bose QuietComfort 45", "description": "Comfortable over-ear headphones with excellent noise cancellation and sound quality.", "category": "Headphones", "price": 329.99}}
+{"put": "id:product:product::8", "fields": {"name": "HP Spectre x360", "description": "Versatile 2-in-1 laptop with a sleek design and powerful performance.", "category": "Laptop", "price": 1399.99}}
+{"put": "id:product:product::9", "fields": {"name": "OnePlus 11", "description": "High-performance smartphone with fast charging and a smooth user experience.", "category": "Smartphone", "price": 799.99}}
+{"put": "id:product:product::10", "fields": {"name": "Sennheiser Momentum 4 Wireless", "description": "Premium wireless headphones with superior sound quality and comfort.", "category": "Headphones", "price": 399.99}}

@@ -1,4 +1,3 @@
-
 #product is the schema name
 #Now, we define the document itself inside this schema — this is like saying:
 #"My schema named product stores documents of type product"
@@ -29,6 +28,10 @@ search product{
 
         field price type double {
             indexing: attribute | summary
+        }
+
+        field category type string {
+            indexing: index | summary
         }
     }
     rank-profile default {

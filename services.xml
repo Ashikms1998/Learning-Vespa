@@ -1,18 +1,18 @@
 <!-- 
 
-//services:This starts the services block. Vespa expects this wrapper for all config.
-//the container service — this is where:Your search queries will go,Your document feeding API lives,It opens HTTP port 8080
-//http - Exposes HTTP server on port 8080 (so you can hit localhost:8080)
-//Each service (search, document-api, http) maps to a bundle that is vespa has this built in
-//so declaring "search" Accepts HTTP GET/POST search queries and "document-api" Accepts POST/PUT/DELETE docs (CRUD)
-//"http" will Listens on port 8080.so with search and document-api you can search and feed via HTTP
-//the id=content can be any name 
-//the content node, which is where Vespa will actually:Store your documents (like a DB),Build search indexes,Serve vector and full-text queries,Apply ranking logic,A vector DB,search indexer
-//redundancy = 1 Store 1 copy of each document
-//document type="product" .../ the type="product" must match your doc.sd schema name. but if i have two schema then write another same like that document line just below it and type will be that schema name 
-//and You don’t need multiple 'content' blocks — one content cluster can store multiple schema types.
-//node hostalias="node1" this means Assign this content node to a machine I’ve nicknamed node1(It’s just a name you can call anything .But you must then define it in hosts.xml)
-//Just make sure the name 'node1' is consistent between services.xml and hosts.xml 
+services:This starts the services block. Vespa expects this wrapper for all config.
+the container service — this is where:Your search queries will go,Your document feeding API lives,It opens HTTP port 8080
+http - Exposes HTTP server on port 8080 (so you can hit localhost:8080)
+Each service (search, document-api, http) maps to a bundle that is vespa has this built in
+so declaring "search" Accepts HTTP GET/POST search queries and "document-api" Accepts POST/PUT/DELETE docs (CRUD)
+"http" will Listens on port 8080.so with search and document-api you can search and feed via HTTP
+the id=content can be any name 
+the content node, which is where Vespa will actually:Store your documents (like a DB),Build search indexes,Serve vector and full-text queries,Apply ranking logic,A vector DB,search indexer
+redundancy = 1 Store 1 copy of each document
+document type="product" .../ the type="product" must match your doc.sd schema name. but if i have two schema then write another same like that document line just below it and type will be that schema name 
+and You don’t need multiple 'content' blocks — one content cluster can store multiple schema types.
+node hostalias="vespa-container" this means Assign this content node to a machine I've nicknamed vespa-container(It's just a name you can call anything .But you must then define it in hosts.xml)
+Just make sure the name 'vespa-container' is consistent between services.xml and hosts.xml 
 In Vespa, when you're defining <nodes> under a <content> cluster (which handles document storage), Vespa needs to know how to distribute documents across those nodes.
 Each node is given a unique ID, called the distribution-key.This key tells Vespa: Put some share of documents on this node.
 since this is configured for running a single-node app for learning.So you only have 1 node in your <content> cluster.
@@ -30,15 +30,18 @@ Port 19071 from the container → for Vespa internal admin tools to talk to the 
     <http>
       <server id="main" port="8080"/>
     </http>
+    <nodes>
+    <node hostalias="vespa-container"/>
+    </nodes>
   </container>
 
-  <content id="content" version="1.0">
+  <content id="product" version="1.0">
     <redundancy>1</redundancy>
     <documents>
       <document type="product" mode="index"/>
     </documents>
     <nodes>
-      <node hostalias="node1" distribution-key="0"/>
+      <node hostalias="vespa-container" distribution-key="0"/>
     </nodes>
   </content>
 </services>

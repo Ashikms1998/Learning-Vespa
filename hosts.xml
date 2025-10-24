@@ -1,18 +1,14 @@
 <!-- 
 
-This file tells Vespa: These are the  Docker containers where services should run.
-<host name="vespa"> The real hostname of your machine or Docker container ,Note:name must match the container name
-<alias>node1</alias> The nickname you used in services.xml: <node hostalias="node1"/>
-So this is saying: Hey Vespa, when I say node1, I mean the host named vespa
+This file tells Vespa: These are the Docker containers where services should run.
+<host name="localhost"> The real hostname of your machine or Docker container. For local development, use "localhost"
+<alias>vespa-container</alias> The nickname you used in services.xml: <node hostalias="vespa-container"/>
+So this is saying: Hey Vespa, when I say vespa-container, I mean the host named localhost
  -->
 
 
 <hosts>
-    <host name="vespa-container">
-        <alias>node1</alias>
+    <host name="localhost">
+        <alias>vespa-container</alias>
     </host>
 </hosts>
-
-
-
-
