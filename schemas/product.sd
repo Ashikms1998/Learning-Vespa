@@ -8,12 +8,23 @@
 #summary : When you do a query and Vespa returns documents, it only includes fields marked with "summary"
 #So if you don’t mark a field with "summary", Vespa can find it, but won’t return it in results.
 #use attribute for filtering because it automatically do Numeric filter (e.g. price > 1000),Sorting (e.g. order by price),Grouping / aggregation
-#we can use attrubute like this (field name type string {
+#and we can use attrubute like this (field name type string {
 #  indexing: index | attribute | summary
 #}) but using both index and attribute uses more memory (because Vespa stores it twice: tokenized and raw)so not suggesting.
 #nativeRank - Use Vespa’s default scoring to rank documents based on name and description matches here.
 #we can also write our own formulas(eg:expression: 0.7 * nativeRank(name, description) + 0.3 * attributeMatch(price))
-
+#field embedding:You are defining a new field in the schema called embedding.This field will store vector data (not plain text or numbers).
+#tensor<float>(x[3])The field is a tensor (multi-dimensional array).The tensor holds floating-point numbers (float).The shape is 
+#x[3]This means: one dimension named x, with exactly 3 values (a 3D vector like [0.1, 0.2, 0.3]).You can replace 3 with 384, 768, etc., 
+#for real embeddings from models like sentence-transformers(we will talk about it later)
+#Without attribute, Vespa cannot perform vector nearest neighbor searches on this field ,The attribute we used here is different than attribute used here (indexing: attribute | summary)
+#attribute { distance-metric: euclidean }This tells Vespa which distance metric 
+#to use when comparing two vectors: euclidean Standard straight-line distance between two points in space.
+#and It gets stored in memory for fast access,especially for things like vector similarity search 
+#this is saying like This attribute is a vector, and I want Vespa to use Euclidean distance when comparing vectors in searches.
+#so the first attribute tells Vespa what to store and he second attribute tells Vespa how to use it.
+#When Vespa does vector similarity search, it needs a way to measure "how close" two vectors are. That’s what the distance metric defines.
+#there are different type of metric like euclidean read index.md file
 
 
 search product{ 
@@ -33,7 +44,15 @@ search product{
         field category type string {
             indexing: index | summary
         }
+
+        field embedding type tensor<float>(x[3]) {
+            indexing: attribute | summary
+            attribute {
+                distance-metric: euclidean
+            }
+        }
     }
+
     rank-profile default {
         first-phase {
             expression:nativeRank(name, description)
